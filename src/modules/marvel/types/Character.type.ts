@@ -1,41 +1,35 @@
+type Item = { name: string; resourceURI: string };
+
 type Comic = {
 	available: number;
 	collectionURI: string;
-	items: {
-		name: string;
-		resourceURI: string;
-	}[];
 	returned: number;
+	items: Item[];
 };
 type Event = {
 	available: number;
 	collectionURI: string;
-	items: {
-		name: string;
-		resourceURI: string;
-	}[];
 	returned: number;
+	items: Item[];
 };
 type Series = {
 	available: number;
 	collectionURI: string;
-	items: {
-		name: string;
-		resourceURI: string;
-	}[];
 	returned: number;
+	items: Item[];
 };
 type Story = {
 	available: number;
 	collectionURI: string;
-	items: {
-		name: string;
-		resourceURI: string;
-	}[];
 	returned: number;
+	items: Item[];
 };
 
-export type Character = {
+type Thumbnail = { extension: string; path: string };
+
+type Url = { type: string; url: string };
+
+type CharacterType = {
 	id: number;
 	name: string;
 	modified: string;
@@ -45,12 +39,8 @@ export type Character = {
 	events: Event;
 	series: Series;
 	stories: Story;
-	thumbnail: {
-		extension: string;
-		path: string;
-	};
-	urls: {
-		type: string;
-		url: string;
-	}[];
+	thumbnail: Thumbnail;
+	urls: Url[];
 };
+
+export type { CharacterType };

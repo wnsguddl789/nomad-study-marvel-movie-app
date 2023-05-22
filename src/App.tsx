@@ -2,10 +2,12 @@ import { Layout as AppContainer } from "@templates";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import CharacterDetailPage, {
-	loader as characterDetailLoader,
-} from "@pages/marvel/CharacterDetailPage";
-import CharacterListPage, { loader as characterListLoader } from "@pages/marvel/CharacterListPage";
+import {
+	CharacterDetailPage,
+	characterDetailLoader,
+	CharacterListPage,
+	characterListLoader,
+} from "@pages/marvel";
 
 export default function RootApp() {
 	const router = createBrowserRouter([

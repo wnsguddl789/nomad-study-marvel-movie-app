@@ -18,17 +18,13 @@
 		"baseUrl": "src",
 		"paths": {
 			"@/*": ["*"],
-			"@theme/*": ["theme/*"],
-			"@hooks": ["hooks"],
-			"@types": ["types"],
-			"@api": ["utils/api"],
-			"@pages/*": ["components/pages/*"],
-			"@viewModels/*": ["viewModels/*"],
-			"@views/*": ["views/*"],
+			"@common/*": ["modules/common/*"],
+			"@marvel/*": ["modules/marvel/*"],
 
 			"@atoms": ["components/atoms"],
 			"@organisms": ["components/organisms"],
-			"@templates": ["components/templates"]
+			"@templates": ["components/templates"],
+			"@pages/*": ["components/pages"]
 		}
 	},
 	"include": ["src"],

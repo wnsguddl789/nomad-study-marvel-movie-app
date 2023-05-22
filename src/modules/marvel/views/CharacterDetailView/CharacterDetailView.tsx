@@ -9,10 +9,10 @@ import {
 
 import { Typography, Paragraph, Button, Image } from "@atoms";
 
-import type { Character } from "@types";
+import type { CharacterType } from "@marvel/types/Character.type";
 
 type Props = {
-	characterDetailData?: Character;
+	characterDetailData?: CharacterType;
 	navigateToCharacterListPage: () => void;
 };
 
@@ -100,4 +100,5 @@ const CharacterDetailView = ({ characterDetailData, navigateToCharacterListPage 
 		)}
 	</CharacterDetailViewWrapper>
 );
+
 export default CharacterDetailView;

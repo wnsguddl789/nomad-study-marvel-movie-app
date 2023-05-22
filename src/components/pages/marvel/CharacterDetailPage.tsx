@@ -1,18 +1,23 @@
+import { Suspense } from "react";
 import { Params, useParams } from "react-router-dom";
 
-import { apiCall, API_KEYS } from "@api";
-import { Pagination, Character } from "@types";
+import { apiCall, API_KEYS } from "@common/utils/api";
 
-import CharacterDetailViewModel from "@viewModels/marvel/CharacterDetailViewModel";
+import CharacterDetailViewModel from "@marvel/viewModels/CharacterDetailViewModel";
+import { CharacterListType } from "@marvel/types/CharacterList.type";
 
-export type CharacterList = { results: Character[] } & Pagination;
+import { Typography } from "@atoms";
 
 export default function CharacterDetailPage() {
 	const params = useParams();
 
-	return <CharacterDetailViewModel params={params} loader={loader} />;
+	return (
+		<Suspense fallback={<Typography>Loading...</Typography>}>
+			<CharacterDetailViewModel params={params} loader={characterDetailLoader} />
+		</Suspense>
+	);
 }
 
-export const loader = async ({ params }: { params: Params }) => {
-	return apiCall<CharacterList>(API_KEYS.FETCH_MARVEL_CHARACTER_DETAIL + params.id);
+export const characterDetailLoader = async ({ params }: { params: Params }) => {
+	return apiCall<CharacterListType>(API_KEYS.FETCH_MARVEL_CHARACTER_DETAIL + params.id);
 };

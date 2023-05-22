@@ -1,12 +1,11 @@
 import { Suspense } from "react";
 
-import { apiCall, API_KEYS } from "@api";
-import { Pagination, Character } from "@types";
+import { apiCall, API_KEYS } from "@common/utils/api";
 
-import CharacterListViewModel from "@/viewModels/marvel/CharacterListViewModel";
+import CharacterListViewModel from "@marvel/viewModels/CharacterListViewModel";
+import type { CharacterListType } from "@marvel/types/CharacterList.type";
+
 import { Typography } from "@atoms";
-
-export type CharacterList = { results: Character[] } & Pagination;
 
 export default function CharacterListPage() {
 	return (
@@ -16,8 +15,14 @@ export default function CharacterListPage() {
 	);
 }
 
-export const loader = async ({ offset = 10, limit = 10 }: { offset: number; limit: number }) => {
-	return apiCall<CharacterList>(
+export const characterListLoader = async ({
+	offset = 10,
+	limit = 10,
+}: {
+	offset: number;
+	limit: number;
+}) => {
+	return apiCall<CharacterListType>(
 		`${API_KEYS.FETCH_MARVEL_CHARACTER_LIST}?&orderBy=modified&series=24229,1058,2023?offset=${offset}&limit=${limit}`
 	);
 };
