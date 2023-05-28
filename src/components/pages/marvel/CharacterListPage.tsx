@@ -1,28 +1,26 @@
-import { Suspense } from "react";
+import { Suspense, useMemo } from "react";
 
-import { apiCall, API_KEYS } from "@common/utils/api";
+import CharacterListViewModel from "@/modules/marvel/viewModels/CharacterListViewModel";
 
-import CharacterListViewModel from "@marvel/viewModels/CharacterListViewModel";
-import type { CharacterListType } from "@marvel/types/CharacterList.type";
+import CharacterStore from "@marvel/store/CharacterStore";
 
 import { Typography } from "@atoms";
 
+const characterStore = new CharacterStore();
+
 export default function CharacterListPage() {
+	const stores = useMemo(() => ({ characterStore }), []);
 	return (
 		<Suspense fallback={<Typography>Loading...</Typography>}>
-			<CharacterListViewModel />
+			<CharacterListViewModel stores={stores} />
 		</Suspense>
 	);
 }
 
-export const characterListLoader = async ({
-	offset = 10,
-	limit = 10,
-}: {
-	offset: number;
-	limit: number;
-}) => {
-	return apiCall<CharacterListType>(
-		`${API_KEYS.FETCH_MARVEL_CHARACTER_LIST}?&orderBy=modified&series=24229,1058,2023?offset=${offset}&limit=${limit}`
-	);
+export const characterListLoader = async () => {
+	const { list: characterList } = await characterStore.fetchCharacterList();
+
+	characterStore.setCharacterList(characterList);
+
+	return characterList;
 };

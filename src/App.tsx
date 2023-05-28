@@ -14,7 +14,7 @@ export default function RootApp() {
 		{
 			path: "/",
 			element: <CharacterListPage />,
-			loader: () => characterListLoader({ offset: 10, limit: 10 }),
+			loader: () => characterListLoader(),
 		},
 		{
 			path: "/character/:id",

@@ -1,4 +1,3 @@
-import { forwardRef, ForwardedRef } from "react";
 import { NavigateFunction } from "react-router-dom";
 
 import {
@@ -10,42 +9,37 @@ import {
 import { Button, Typography } from "@atoms";
 import { Card } from "@organisms";
 
-import type { CharacterListType } from "@marvel/types/CharacterList.type";
+import Character from "@marvel/models/Character";
 
 type Props = {
-	characterListData?: CharacterListType;
+	characterListData?: Character[];
 	navigate: NavigateFunction;
 	fetchMoreCharacterList: () => void;
 };
 
-const CharacterListView = forwardRef(
-	(
-		{ characterListData, navigate, fetchMoreCharacterList }: Props,
-		ref: ForwardedRef<HTMLUListElement>
-	) => (
-		<CharacterListViewWrapper>
-			<Typography color="#000000" textAlign="center" level={1} strong>
-				Marvel Character List
-			</Typography>
-			<CharacterList ref={ref}>
-				{characterListData?.results.map((character) => (
-					<CharacterListItem key={character.id}>
-						<Card
-							onClick={() => navigate(`/character/${character.id}`)}
-							title={character.name}
-							description={
-								character.description.length === 0
-									? "No Description..."
-									: character.description
-							}
-							imageSrc={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-						/>
-					</CharacterListItem>
-				))}
-			</CharacterList>
-			<Button onClick={fetchMoreCharacterList}>More Data</Button>
-		</CharacterListViewWrapper>
-	)
+const CharacterListView = ({ characterListData, navigate, fetchMoreCharacterList }: Props) => (
+	<CharacterListViewWrapper>
+		<Typography color="#000000" textAlign="center" level={1} strong>
+			Marvel Character List
+		</Typography>
+		<CharacterList>
+			{characterListData?.map((character) => (
+				<CharacterListItem key={character.id}>
+					<Card
+						onClick={() => navigate(`/character/${character.id}`)}
+						title={character.name}
+						description={
+							character.description.length === 0
+								? "No Description..."
+								: character.description
+						}
+						imageSrc={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+					/>
+				</CharacterListItem>
+			))}
+		</CharacterList>
+		<Button onClick={fetchMoreCharacterList}>More Data</Button>
+	</CharacterListViewWrapper>
 );
 
 export default CharacterListView;

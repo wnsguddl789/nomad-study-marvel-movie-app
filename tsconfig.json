@@ -19,6 +19,7 @@
 		"paths": {
 			"@/*": ["*"],
 			"@common/*": ["modules/common/*"],
+			"@core/*": ["modules/core/*"],
 			"@marvel/*": ["modules/marvel/*"],
 
 			"@atoms": ["components/atoms"],

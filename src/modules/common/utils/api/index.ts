@@ -1,2 +1,2 @@
-export { default as apiCall } from "./apiCall";
+export { default as apiClient } from "./apiClient";
 export * from "./key";

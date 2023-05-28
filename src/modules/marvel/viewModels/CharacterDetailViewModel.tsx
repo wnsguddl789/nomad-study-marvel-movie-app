@@ -4,15 +4,17 @@ import { useNavigate, Params } from "react-router-dom";
 import { CharacterListType } from "@marvel/types/CharacterList.type";
 
 import { CharacterDetailView } from "@marvel/views/CharacterDetailView";
+import { characterDetailLoader } from "@pages/marvel";
 
 type Props = {
 	params: Params;
-	loader: ({ params }: { params: Params }) => Promise<CharacterListType>;
 };
 
-export default function CharacterDetailViewModel({ params, loader }: Props) {
+export default function CharacterDetailViewModel({ params }: Props) {
 	const navigate = useNavigate();
-	const [characterDetail] = useInitialLoaderData<CharacterListType>(() => loader({ params }));
+
+	const fetchCharacterDetail = () => characterDetailLoader({ params });
+	const [characterDetail] = useInitialLoaderData<CharacterListType>(fetchCharacterDetail);
 
 	const characterDetailData = characterDetail?.results.at(0);
 
