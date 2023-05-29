@@ -10,6 +10,7 @@ export default class Pagination {
 	readonly limit;
 	readonly total;
 	readonly count;
+
 	constructor(pagination: PaginationType) {
 		this.offset = pagination.offset;
 		this.limit = pagination.limit;

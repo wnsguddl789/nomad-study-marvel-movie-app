@@ -11,17 +11,10 @@ export default function CharacterListViewModel({ stores: characterListStore }: P
 	const { characterStore } = stores;
 	const { characterStoreSnapshot } = snapshots;
 
-	const pagination = characterStoreSnapshot.pagination;
+	const { offset, limit } = characterStoreSnapshot.pagination;
 
 	const fetchMoreCharacterList = async () => {
-		characterStore.setCharacterListPagination({
-			...pagination,
-			offset: pagination.offset + 10,
-			limit: pagination.limit + 10,
-		});
-		const { list: characterList } = await characterStore.fetchCharacterList();
-
-		characterStore.setCharacterList(characterList);
+		await characterStore.fetchCharacterList(offset + 10, limit + 10);
 	};
 
 	return (
