@@ -1,26 +1,29 @@
 import { Suspense, useMemo } from "react";
 
-import CharacterListViewModel from "@/modules/marvel/viewModels/CharacterListViewModel";
-
+import CharacterListViewModel from "@marvel/viewModels/CharacterListViewModel";
 import CharacterStore from "@marvel/store/CharacterStore";
+
+import { INITIAL_PAGINATION } from "@/modules/common/constants";
 
 import { Typography } from "@atoms";
 
 const characterStore = new CharacterStore();
 
 export default function CharacterListPage() {
-	const stores = useMemo(() => ({ characterStore }), []);
+	const RootStore = useMemo(() => ({ characterStore }), []);
 	return (
 		<Suspense fallback={<Typography>Loading...</Typography>}>
-			<CharacterListViewModel stores={stores} />
+			<CharacterListViewModel stores={RootStore} />
 		</Suspense>
 	);
 }
 
 export const characterListLoader = async () => {
-	const { list: characterList } = await characterStore.fetchCharacterList();
+	const { offset, limit } = INITIAL_PAGINATION;
 
-	characterStore.setCharacterList(characterList);
+	await characterStore.fetchCharacterList(offset, limit);
+
+	const { characterList } = characterStore.getSnapShot();
 
 	return characterList;
 };

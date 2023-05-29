@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import CharacterStore from "@marvel/store/CharacterStore";
-import { useCharacterStore } from "@marvel/hooks";
+import CharacterStore, { CharacterSnapshot } from "@marvel/store/CharacterStore";
+import useStore from "@core/hooks/useStore";
 
 export type Stores = {
 	characterStore: CharacterStore;
@@ -9,7 +9,9 @@ export type Stores = {
 
 const useCharacterListViewModel = (stores: Stores) => {
 	const navigate = useNavigate();
-	const [characterStoreSnapshot, characterStore] = useCharacterStore(stores.characterStore);
+	const [characterStoreSnapshot, characterStore] = useStore<CharacterSnapshot>(
+		stores.characterStore
+	);
 
 	return {
 		snapshots: { characterStoreSnapshot },
